@@ -57,6 +57,17 @@ function showResult() {
         message = 'Þetta gekk mjög vel';
     }
     document.getElementById('result').textContent = `Þú fékkst ${score}/10. ${message}`;
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('restart').style.display = 'block';
 }
 
-window.onload = generateQuestion;
+function startGame() {
+    score = 0;
+    questionCount = 0;
+    document.getElementById('game').style.display = 'block';
+    document.getElementById('result').textContent = '';
+    document.getElementById('restart').style.display = 'none';
+    generateQuestion();
+}
+
+window.onload = startGame;
