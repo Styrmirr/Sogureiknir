@@ -4,7 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('https://wallpaperaccess.com/full/480944.jpg'); /* Use the relative path to the image in your repository */
+    background-image: url(https://wallpaperaccess.com/full/480944.jpg); /* Use the relative path to the image in your repository */
     background-size: cover;
     background-position: center;
 }
@@ -13,7 +13,7 @@ body {
     text-align: center;
     background: white;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(1, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
 }
 
