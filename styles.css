@@ -4,7 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('GettyImages-476744133-scaled.jpg'); /* Use the relative path to the image in your repository */
+    background-image: url('https://wallpaperaccess.com/full/480944.jpg'); /* Use the relative path to the image in your repository */
     background-size: cover;
     background-position: center;
 }
