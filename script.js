@@ -1,34 +1,80 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+let num1, num2, operator, correctAnswer, score = 0, questionCount = 0;
+
+function generateQuestion() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
+    const operators = ['+', '-', '*'];
+    operator = operators[Math.floor(Math.random() * operators.length)];
+    if (operator === '+') {
+        correctAnswer = num1 + num2;
+    } else if (operator === '-') {
+        correctAnswer = num1 - num2;
+    } else if (operator === '*') {
+        correctAnswer = num1 * num2;
+    }
+
+    document.getElementById('question').textContent = `${num1} ${operator} ${num2}`;
+    generateOptions();
 }
 
-.container {
-    text-align: center;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+function generateOptions() {
+    const options = [];
+    const correctOptionIndex = Math.floor(Math.random() * 4);
+    for (let i = 0; i < 4; i++) {
+        if (i === correctOptionIndex) {
+            options.push(correctAnswer);
+        } else {
+            let wrongAnswer;
+            do {
+                wrongAnswer = correctAnswer + Math.floor(Math.random() * 10) - 5;
+            } while (wrongAnswer === correctAnswer || options.includes(wrongAnswer));
+            options.push(wrongAnswer);
+        }
+    }
+
+    const optionsContainer = document.getElementById('options');
+    optionsContainer.innerHTML = '';
+    options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.onclick = () => checkAnswer(option);
+        optionsContainer.appendChild(button);
+    });
 }
 
-#game {
-    margin: 20px 0;
+function checkAnswer(selectedAnswer) {
+    if (selectedAnswer === correctAnswer) {
+        score++;
+    }
+    questionCount++;
+    if (questionCount < 10) {
+        generateQuestion();
+    } else {
+        showResult();
+    }
 }
 
-#question {
-    font-size: 20px;
+function showResult() {
+    let message;
+    if (score <= 4) {
+        message = 'Reyndu aftur';
+    } else if (score <= 7) {
+        message = 'Þetta gekk frekar vel';
+    } else {
+        message = 'Þetta gekk mjög vel';
+    }
+    document.getElementById('result').textContent = `Þú fékkst ${score}/10. ${message}`;
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('restart').style.display = 'block';
 }
 
-#options {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+function startGame() {
+    score = 0;
+    questionCount = 0;
+    document.getElementById('game').style.display = 'block';
+    document.getElementById('result').textContent = '';
+    document.getElementById('restart').style.display = 'none';
+    generateQuestion();
 }
 
-button {
-    padding: 5px 10px;
-    font-size: 16px;
-}
+window.onload = startGame;
